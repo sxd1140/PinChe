@@ -7,44 +7,12 @@
     <script type = "text/javascript" src = "http://api.map.baidu.com/api?v=1.2"></script>
     <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
 
-    <script type = "text/javascript">
-        var map;
-        var startIcon = new BMap.Icon("http://api.map.baidu.com/img/dest_markers.png", new BMap.Size(42, 34));
-        var endIcon = new BMap.Icon("http://api.map.baidu.com/img/dest_markers.png", new BMap.Size(42, 34), {imageOffset: new BMap.Size(0, -34)});
-        var startPoint = new BMap.Point(120.296718, 31.586485);
-        var endPoint = new BMap.Point(120.314828, 31.571904);
-        var startMarker;
-        var endMarker;
-
-        $(function() {
-            map = new BMap.Map("container");          // 创建地图实例
-            var point = new BMap.Point(120.306492, 31.581379);  // 创建点坐标
-            map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
-            map.enableScrollWheelZoom();
-            map.addControl(new BMap.NavigationControl());
-            map.addControl(new BMap.OverviewMapControl());
-
-            map.addEventListener("click", onMapClickHandler);
-
-
-            var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true, enableDragging: true}});
-            driving.search(startPoint, endPoint);
-        });
-
-        function addMark(point, icon) {
-            var marker = new BMap.Marker(point, {icon:icon});  // 创建标注
-            map.addOverlay(marker);              // 将标注添加到地图中
-            return marker;
-        }
-
-        function onMapClickHandler(event) {
-//            alert(event.point.lng);
-//            alert(event.point.lat);
-        }
-
-    </script>
+    <script type = "text/javascript" src="js/app.js"></script>
 </head>
 <body>
-<div id = "container"></div>
+<div id="divInfo">
+    <button id="btnSave">保存</button>
+</div>
+<div id = "mapContainer"></div>
 </body>
 </html>
