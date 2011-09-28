@@ -31,7 +31,8 @@ $(function() {
 function onDrivingRouteSearchCompletedHandler(results) {
     clearRoutesPoint();
     var resultRoute = results.getPlan(0)._routes;
-    console.log(results.getPlan(0));
+//    console.log(results.getPlan(0));
+    //把所有的路径上的所有点 标注出来
     for (var i = 0; i < resultRoute.length; i++) {
         var route = resultRoute[i];
         for (var j = 0; j < route._points.length; j++) {
