@@ -7,6 +7,8 @@ var startMarker;
 var endMarker;
 var drivingRoute;
 var arrRoutesPoint = [];
+var arrRoutesPointMarkers = [];
+const routePointDistance = 100;
 
 $(function() {
     map = new BMap.Map("mapContainer");          // 创建地图实例
@@ -36,10 +38,20 @@ function onDrivingRouteSearchCompletedHandler(results) {
     for (var i = 0; i < resultRoute.length; i++) {
         var route = resultRoute[i];
         for (var j = 0; j < route._points.length; j++) {
-            var marker = addMark(route._points[j]);
-            arrRoutesPoint.push(marker);
+            arrRoutesPoint.push(route._points[j]);
         }
     }
+
+    for (var k = 0; k < arrRoutesPoint.length; k++){
+        if (map.getDistance(arrRoutesPoint[k],arrRoutesPoint[k+1]) < routePointDistance){
+            continue;
+        }
+        var marker = addMark(arrRoutesPoint[k]);
+            arrRoutesPointMarkers.push(marker);
+    }
+    arrRoutesPoint = [];
+
+
 }
 
 function onBtnSaveClickHandler(event) {
@@ -48,10 +60,12 @@ function onBtnSaveClickHandler(event) {
 }
 //清除之前画的路径上的点
 function clearRoutesPoint() {
-    for (var i = 0; i < arrRoutesPoint.length; i++) {
-        var marker = arrRoutesPoint[i];
+    for (var i = 0; i < arrRoutesPointMarkers.length; i++) {
+        var marker = arrRoutesPointMarkers[i];
         map.removeOverlay(marker);
+//        arrRoutesPointMarkers.splice(i,1);
     }
+    arrRoutesPointMarkers = [];
 }
 
 function addMark(point, icon) {
